@@ -4,7 +4,7 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 input.onButtonPressed(Button.AB, function () {
-    if (動作中) {
+    if (動作中 && 演奏中) {
         動作中 = false
         演奏中 = false
         basic.clearScreen()
@@ -71,7 +71,8 @@ basic.forever(function () {
         }
     })
     while (演奏中) {
-        music.startMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.OnceInBackground)
+        music.startMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.Once)
+        basic.pause(5000)
         basic.pause(5000)
     }
     basic.pause(500)
