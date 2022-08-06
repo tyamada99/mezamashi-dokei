@@ -10,51 +10,49 @@ input.onButtonPressed(Button.AB, function () {
         basic.clearScreen()
     }
 })
+input.onButtonPressed(Button.B, function () {
+    if (動作中) {
+        basic.showString("" + convertToText(アラーム時) + ":" + convertToText(アラーム分))
+    }
+})
+function 時刻セット (数値: number, 時分: string) {
+    while (!(input.buttonIsPressed(Button.AB))) {
+        if (input.buttonIsPressed(Button.A)) {
+            if (時分 == "時" && 数値 < 24) {
+                数値 = 数値 + 1
+            } else if (時分 == "分" && 数値 < 60) {
+                数値 = 数値 + 1
+            }
+        } else if (input.buttonIsPressed(Button.B)) {
+            if (数値 > 0) {
+                数値 = 数値 - 1
+            }
+        }
+        basic.showNumber(数値)
+        basic.pause(500)
+    }
+    return 数値
+}
+let 数値 = 0
 let 演奏中 = false
+let アラーム分 = 0
+let アラーム時 = 0
 let 動作中 = false
 動作中 = false
-let 時 = 18
-let 分 = 58
-let アラーム時 = 19
-let アラーム分 = 0
-basic.showString("Set Hr")
-while (!(input.buttonIsPressed(Button.AB))) {
-    if (input.buttonIsPressed(Button.A)) {
-        時 = 時 + 1
-    } else if (input.buttonIsPressed(Button.B)) {
-        時 = 時 - 1
-    }
-    basic.showNumber(時)
-}
-basic.showString("Set Min")
-while (!(input.buttonIsPressed(Button.AB))) {
-    if (input.buttonIsPressed(Button.A)) {
-        分 = 分 + 1
-    } else if (input.buttonIsPressed(Button.B)) {
-        分 = 分 - 1
-    }
-    basic.showNumber(分)
-}
+let 時 = 14
+let 分 = 51
+アラーム時 = 14
+アラーム分 = 53
+basic.showString("Hour")
+時 = 時刻セット(時, "時")
+basic.showString("Minute")
+分 = 時刻セット(分, "分")
 timeanddate.set24HourTime(時, 分, 0)
 basic.showString(timeanddate.time(timeanddate.TimeFormat.HHMM24hr))
-basic.showString("Set Alm Hr")
-while (!(input.buttonIsPressed(Button.AB))) {
-    if (input.buttonIsPressed(Button.A)) {
-        アラーム時 += 1
-    } else if (input.buttonIsPressed(Button.B)) {
-        アラーム時 += -1
-    }
-    basic.showNumber(アラーム時)
-}
-basic.showString("Set Alm min")
-while (!(input.buttonIsPressed(Button.AB))) {
-    if (input.buttonIsPressed(Button.A)) {
-        アラーム分 += 1
-    } else if (input.buttonIsPressed(Button.B)) {
-        アラーム分 += -1
-    }
-    basic.showNumber(アラーム分)
-}
+basic.showString("Alm Hr")
+アラーム時 = 時刻セット(アラーム時, "時")
+basic.showString("Alm min")
+アラーム分 = 時刻セット(アラーム分, "分")
 basic.showString("" + convertToText(アラーム時) + ":" + convertToText(アラーム分))
 演奏中 = false
 動作中 = true
@@ -72,8 +70,7 @@ basic.forever(function () {
     })
     while (演奏中) {
         music.startMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.Once)
-        basic.pause(5000)
-        basic.pause(5000)
+        basic.pause(9000)
     }
     basic.pause(500)
 })
