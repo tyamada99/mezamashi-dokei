@@ -1,47 +1,39 @@
-input.onButtonPressed(Button.A, function on_button_pressed_a() {
+input.onButtonPressed(Button.A, function () {
     if (動作中) {
         basic.showString(timeanddate.time(timeanddate.TimeFormat.HHMM24hr))
     }
-    
 })
-input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
-    
+input.onButtonPressed(Button.AB, function () {
     if (動作中 && 演奏中) {
         動作中 = false
         演奏中 = false
         basic.clearScreen()
     }
-    
 })
-input.onButtonPressed(Button.B, function on_button_pressed_b() {
+input.onButtonPressed(Button.B, function () {
     if (動作中) {
         basic.showString("" + convertToText(アラーム時) + ":" + convertToText(アラーム分))
     }
-    
 })
-function 時刻セット(数値: number, 時分: string): number {
-    while (!input.buttonIsPressed(Button.AB)) {
+function 時刻セット (数値: number, 時分: string) {
+    while (!(input.buttonIsPressed(Button.AB))) {
         if (input.buttonIsPressed(Button.A)) {
             if (時分 == "時" && 数値 < 24) {
                 数値 = 数値 + 1
             } else if (時分 == "分" && 数値 < 60) {
                 数値 = 数値 + 1
             }
-            
         } else if (input.buttonIsPressed(Button.B)) {
             if (数値 > 0) {
                 数値 = 数値 - 1
             }
-            
         }
-        
         basic.showNumber(数値)
         basic.pause(500)
     }
     return 数値
 }
-
-let 数値2 = 0
+let 数値 = 0
 let 演奏中 = false
 let アラーム分 = 0
 let アラーム時 = 0
@@ -64,20 +56,17 @@ basic.showString("Alm min")
 basic.showString("" + convertToText(アラーム時) + ":" + convertToText(アラーム分))
 演奏中 = false
 動作中 = true
-basic.forever(function on_forever() {
-    timeanddate.numericTime(function on_numeric_time(hour: number, minute: number, second: number, month: number, day: number, year: number) {
-        
+basic.forever(function () {
+    timeanddate.numericTime(function (hour, minute, second, month, day, year) {
         if (hour == アラーム時 && minute == アラーム分) {
             if (動作中) {
                 basic.showIcon(IconNames.EigthNote)
                 演奏中 = true
             }
-            
         } else {
             演奏中 = false
             動作中 = true
         }
-        
     })
     while (演奏中) {
         music.startMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.Once)
