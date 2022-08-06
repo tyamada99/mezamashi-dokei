@@ -1,5 +1,6 @@
-
 # micro:bitでめざまし時計
+
+![badje](https://img.shields.io/badge/micro%3Abit-V2-brightgreen)
 
 micro:bitの拡張機能：[microbit-pxt-timeanddate](https://makecode.microbit.org/pkg/bsiever/microbit-pxt-timeanddate)を使用しためざまし時計です。rtcモジュールを使わず、micro:bit単体で動作します。
 
