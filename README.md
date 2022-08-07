@@ -86,7 +86,8 @@ A+Bボタンを押すとアラームが止まります。
 * **https://github.com/tyamada99/mezamashi-dokei** を検索してインポートします。
 -->
 
-## このプロジェクトを編集します ![ビルド ステータス バッジ](https://github.com/tyamada99/mezamashi-dokei/workflows/MakeCode/badge.svg)
+## このプロジェクトを編集します
+<!-- ![ビルド ステータス バッジ](https://github.com/tyamada99/mezamashi-dokei/workflows/MakeCode/badge.svg)　-->
 
 MakeCode でこのリポジトリを編集します。
 
